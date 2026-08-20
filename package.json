@@ -1,0 +1,20 @@
+{
+  "name": "jalsathi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JJM Gram Jal O&M — Rural Water Supply Management PWA (Monorepo Root)",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:client": "npm run build --workspace=client",
+    "install:all": "npm install && npm install --workspace=client && npm install --workspace=server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
