@@ -19,7 +19,7 @@ const mockData = require('./db/mockData');
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 // ─── Health ping (used by offline detection Layer 3) ────────────────────────
