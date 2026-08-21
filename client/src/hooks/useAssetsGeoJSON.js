@@ -5,8 +5,14 @@ export const useAssetsGeoJSON = () => {
   return useQuery({
     queryKey: ['assets', 'geojson'],
     queryFn: async () => {
-      const response = await api.get('/assets/geojson');
-      return response.data;
+      try {
+        const response = await api.get('/assets/geojson');
+        return response.data;
+      } catch (err) {
+        console.warn('Backend API unreachable — using client-side mock GeoJSON data');
+        const { mockClientData } = await import('../data/mockData');
+        return mockClientData.assetsGeoJSON;
+      }
     },
     staleTime: 120000,
     retry: 1,

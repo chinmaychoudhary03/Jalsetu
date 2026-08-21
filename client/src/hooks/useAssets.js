@@ -12,8 +12,14 @@ export const useAssets = (filters = {}) => {
       if (type && type !== 'all') params.type = type;
       if (status && status !== 'all') params.status = status;
       
-      const response = await api.get('/assets', { params });
-      return response.data;
+      try {
+        const response = await api.get('/assets', { params });
+        return response.data;
+      } catch (err) {
+        console.warn('Backend API unreachable — using client-side mock assets list');
+        const { mockClientData } = await import('../data/mockData');
+        return mockClientData.assetsList;
+      }
     },
     staleTime: 60000,
     retry: 1

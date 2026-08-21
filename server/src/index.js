@@ -46,6 +46,9 @@ const PORT = process.env.PORT || 3001;
 async function startServer() {
   // Test DB connection
   try {
+    if (process.env.USE_MOCK === 'true' || process.env.FORCE_MOCK === 'true') {
+      throw new Error('Mock mode forced via environment variable');
+    }
     const db = require('./db/connection');
     await db.query('SELECT 1');
     global.DB_AVAILABLE = true;
